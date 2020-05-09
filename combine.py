@@ -8,9 +8,18 @@ from datetime import datetime
 #import MySQLdb
 #from dbconnect import connection
 
+parameter_filename = "export_parameters_20200501_190002.csv"
+elements_filename = "export_elements_20200501_190001.csv"
 
-parameter_dataframe = pd.read_csv("export_parameters_20200501_190002.csv")
-elements_dataframe = pd.read_csv("export_elements_20200501_190001.csv")
+# derive date of file from filename
+file_date = parameter_filename[18:len(parameter_filename)-11]
+
+# create export filename
+export_csv_file = "EcoData_{}.csv".format(file_date)
+
+
+parameter_dataframe = pd.read_csv(parameter_filename)
+elements_dataframe = pd.read_csv(elements_filename)
 
 # drop rows from paramater dataframe where NaN appears in the DSL related columns
 parameter_dataframe.dropna(subset = ["downstreamcurrrate"], inplace=True)
@@ -34,7 +43,7 @@ elements_dataframe['avgCurUp']=elements_dataframe['serialnumber'].map(parameter_
 elements_dataframe['avgMaxUp']=elements_dataframe['serialnumber'].map(parameter_dataframe.set_index('serialnumber')['avgMaxUp'])
 
 # export elements dataframe to a .csv file
-elements_dataframe.to_csv(r'EcoData_clean_putdatehere.csv', index = False)
+elements_dataframe.to_csv(export_csv_file, index = False)
 
 
 
