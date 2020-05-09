@@ -1,12 +1,6 @@
 #! /usr/bin/python
 
 import pandas as pd
-from pandas.io.json import json_normalize
-import time
-import datetime
-from datetime import datetime
-#import MySQLdb
-#from dbconnect import connection
 
 parameter_filename = "export_parameters_20200501_190002.csv"
 elements_filename = "export_elements_20200501_190001.csv"
